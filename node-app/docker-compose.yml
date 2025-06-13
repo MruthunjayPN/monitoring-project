@@ -1,3 +1,14 @@
+#optional file as i am building the iamge in github runner and pushing it dockerhub than directly in ec2
+# Reason	                                  Benefit
+# Separation of concerns	       CI handles building and validating; EC2 handles only deployment
+# Speed	                         No need to rebuild images on EC2 every time you deploy
+# Reliability	                   GitHub Actions always builds in a clean environment — avoids “it works on EC2” problems
+# Security	                     No need to store devDependencies or source code on EC2
+# Caching	                      CI/CD tools (like GitHub runners) cache Docker layers more efficiently for faster builds
+# Scalability	                   Can deploy same image to multiple servers or Kubernetes without rebuilding
+# Rollback	                     Can version/tag images (myapp:1.2.3) and roll back easily
+# Auditability	                 You know exactly which commit built which image
+
 version: "3.8"
 
 services:

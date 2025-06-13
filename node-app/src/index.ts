@@ -19,6 +19,14 @@ app.post('/user' , (req , res) => {
     const body = req.body ;
     res.send({
         name : "john doe" ,
+        age : "28",
+        id : Math.random()
+    })
+});
+
+app.get('/user' , (req , res) => {
+    res.send({
+        name : "john doe" ,
         age : "28"
     })
 });
