@@ -24,12 +24,5 @@ services:
     depends_on:
       - prometheus
 
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: node-exporter
-    ports:
-      - "9100:9100"
-    restart: unless-stopped
-
 volumes:
   grafana-data:
