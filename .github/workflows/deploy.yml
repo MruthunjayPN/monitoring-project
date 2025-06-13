@@ -47,12 +47,11 @@ jobs:
               -p 3000:3000 \
               ${{ secrets.DOCKERHUB_USERNAME }}/node-app:latest
 
-      - name: Check contents of monitoring directory
+      
+      - name: Debug workspace contents
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Monitoring contents:"
-          ls -R monitoring || echo "monitoring folder not found"
+            echo "Workspace content:"
+            ls -R .
        
       - name: Copy monitoring code to Monitoring EC2
         uses: appleboy/scp-action@v0.1.4
@@ -60,7 +59,7 @@ jobs:
           host: ${{ secrets.MONITOR_EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "monitoring/*"
+          source: "./monitoring-project/monitoring"
           target: "~/monitoring"
     
       - name: Deploy to Monitoring EC2
