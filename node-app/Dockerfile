@@ -3,6 +3,8 @@ FROM node:18 AS builder
 WORKDIR /app
 
 COPY package*.json ./
+#env=dev => forcing to install dev dependencies coz tsc was not being installed
+ENV NODE_ENV=development   
 RUN npm install
 
 COPY tsconfig.json ./
