@@ -31,6 +31,14 @@ jobs:
     needs: build-and-push-image
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code into correct folder
+        uses: actions/checkout@v3
+        with:
+          path: monitoring-project  # ✅ Indentation fixed
+
+      - name: List workspace contents
+        run: ls -R monitoring-project
+
       - name: Deploy to Node EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -47,21 +55,18 @@ jobs:
               -p 3000:3000 \
               ${{ secrets.DOCKERHUB_USERNAME }}/node-app:latest
 
-      
-      - name: Debug workspace contents
-        run: |
-            echo "Workspace content:"
-            ls -R .
-       
+      - name: Show monitoring directory
+        run: ls -la monitoring-project/monitoring
+
       - name: Copy monitoring code to Monitoring EC2
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.MONITOR_EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "./monitoring-project/monitoring"
+          source: "./monitoring-project/monitoring"  # ✅ Correct path
           target: "~/monitoring"
-    
+
       - name: Deploy to Monitoring EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
