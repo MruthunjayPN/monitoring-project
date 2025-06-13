@@ -50,7 +50,7 @@ jobs:
       - name: Checkout monitoring code
         uses: actions/checkout@v3
         with:
-          path: monitoring-project/
+          path: monitoring-project
 
       - name: Ensure monitoring folder exists on Monitoring EC2
         uses: appleboy/ssh-action@v0.1.10
@@ -60,14 +60,15 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: mkdir -p ~/monitoring
 
-      - name: Copy monitoring code to Monitoring EC2
+      - name: Copy monitoring folder to Monitoring EC2
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.MONITOR_EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "monitoring-project/monitoring/docker-compose.yml, monitoring-project/monitoring/prometheus.yml"
+          source: "monitoring-project/monitoring"
           target: "~/monitoring"
+          strip_components: 2  #FIXED: Removes monitoring-project/monitoring folder nesting --- new learning
 
       - name: Deploy to Monitoring EC2
         uses: appleboy/ssh-action@v0.1.10
