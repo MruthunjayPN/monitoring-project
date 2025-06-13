@@ -51,14 +51,14 @@ jobs:
           host: ${{ secrets.MONITOR_EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: monitoring/
-          target: monitoring/
+          source: "./monitoring/*"
+          target: "~/monitoring"
 
       - name: Deploy to Monitoring EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.MONITOR_EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
+          username: ${{ secrets.EC2_USER }}`
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd monitoring
