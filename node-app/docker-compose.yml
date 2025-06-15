@@ -1,4 +1,4 @@
-#optional file as i am building the iamge in github runner and pushing it dockerhub than directly in ec2
+#optional file as i am building the image in github runner and pushing it to dockerhub than directly in ec2
 # Reason	                                  Benefit
 # Separation of concerns	       CI handles building and validating; EC2 handles only deployment
 # Speed	                         No need to rebuild images on EC2 every time you deploy
