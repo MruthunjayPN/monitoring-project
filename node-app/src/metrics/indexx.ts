@@ -14,13 +14,13 @@ export const metricsMiddleware = (req : Request , res : Response , next : NextFu
         requestCounter.inc({
             method : req.method , 
             route : req.route ? req.route.path : req.path ,
-            status_code : req.statusCode
+            status_code : req.statusCode?.toString()
         })
 
         httpRequestTime.observe({
             method : req.method , 
             route : req.route ? req.route.path : req.path ,
-            status_code : req.statusCode
+            status_code : req.statusCode?.toString()
         }, duration)
 
         activeRequests.dec();
